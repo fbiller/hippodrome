@@ -22,8 +22,37 @@ class hypo:
         pass
 
 class Course:
-    def __init__ (self):
-        pass
+    def __init__ (self,input_name,input_date):
+        self.name = input_name
+        self.date = input_date
+        self.list_chevaux = []
+        self.gagnant = input_gagnant
+
+    def ajoute_course (self):
+        #ajoute une course en base
+        db= shelve.open("coursedb")
+        db[self.name] = Cheval(self.name, self.date, self.list_chevaux)
+        db.close()
+
+    def affiche_course (self):
+        """ retourne la composition d'une course"""
+        statemnt = 'La course ' + self.name + " du " + self.date + " a les chevaux suivants "
+        print (statemnt)
+        for cheval in self.list_chevaux :
+            print (cheval)
+
+    def ajoute_cheval (self,course_name):
+        db = shelve.open ("coursedb")
+        data_course = db[course_name]
+        data_course.list_chevaux = data_course.list_chevaux.append(Cheval.choix_nom())
+        db[course_name] = data_course
+        db.close()
+
+    def __exit__(self):
+        db.close()
+
+
+pass
 
 class Saisie:
     def __init__(self):
@@ -76,7 +105,7 @@ class Cheval:
                          'Encombremenminimum', 'Nuit Torride', 'Le Petit Kiki', 'La Turlutte']
         return random.choice(noms_insolite)
 
-    def Afff_description(self):
+    def Af_description(self):
         """ retourne les nom age et nombre de victoire d'un cheval"""
         statemnt = self.name,self.age,self.nb_vic
         return statemnt
@@ -141,7 +170,7 @@ class Cheval:
 
 
 #print (Cheval ("Yvanovich",5,3).description())
-#Cheval ("Yvanovich",5,3).add_cheval()
+#
 #Cheval().sup_cheval("Yvanovich")
 #Cheval().chevaux_in_db_affiche("")
 #ch=Cheval().cheval_in_db("Yvanovich")[0]
@@ -152,9 +181,7 @@ class Cheval:
 #Cheval.ajoute_cheval("ch2",['Yvah',3,2])
 #print(ChevalDict)
 
+Cheval (Cheval().choix_nom(),5,3).add_cheval()
+Cheval().chevaux_in_db_affiche("")
 
-
-
-
-
-
+Course("Course1","date1").ajoute_course()

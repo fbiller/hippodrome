@@ -12,3 +12,6 @@ try:
     nombre = int(nombre)
 except ValueError as e:
     print(e)
+
+
+print("coucou")
