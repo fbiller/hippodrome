@@ -116,6 +116,7 @@ class Cheval:
                   + str(self.nb_vic) + " victoire(s)"
         return statemnt
 
+
     def sup_cheval(self,cheval_name):
         #Supprime cheval_name en base
         db = shelve.open('chevaldb')
